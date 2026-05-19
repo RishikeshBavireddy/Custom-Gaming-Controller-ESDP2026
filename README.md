@@ -79,7 +79,7 @@ The complete circuit schematic is shown below:
 ### PCB Layout
 
 #### Design (EasyEDA)
-![PCB Layout](images/pcb_design.png)
+![PCB Layout](images/pcb.png)
 
 #### Fabricated PCB (Before Assembly)
 ![PCB Bare](images/pcb_bare.jpg)
