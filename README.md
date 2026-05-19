@@ -85,7 +85,7 @@ The complete circuit schematic is shown below:
 ![PCB Bare](images/pcb_bare.jpg)
 
 #### Assembled PCB
-![PCB Assembled](images/pcb_assembled.jpg)
+![PCB Assembled](images/pcb_assembled.jpeg)
 
 ---
 
