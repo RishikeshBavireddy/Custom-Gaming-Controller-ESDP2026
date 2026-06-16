@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ESP32 BLE Gaming Controller</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    line-height:1.6;
+}
+
+header{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+header h1{
+    font-size:4rem;
+    margin-bottom:20px;
+}
+
+header p{
+    max-width:800px;
+    font-size:1.2rem;
+    color:#cbd5e1;
+}
+
+.btn{
+    margin-top:30px;
+    display:inline-block;
+    padding:14px 30px;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+section{
+    padding:80px 10%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:2.5rem;
+    margin-bottom:50px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#60a5fa;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+.gallery img{
+    width:100%;
+    border-radius:15px;
+}
+
+.tech{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    justify-content:center;
+}
+
+.tech span{
+    background:#2563eb;
+    padding:10px 18px;
+    border-radius:20px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:#020617;
+    color:#94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>ESP32 BLE Gaming Controller</h1>
+
+<p>
+A custom Bluetooth Low Energy gaming controller built using ESP32,
+featuring dual analog joysticks, MPU6050 motion sensing,
+RGB LED feedback, battery monitoring, trigger controls and
+BLE HID gamepad functionality.
+</p>
+
+<a href="https://github.com/RishikeshBavireddy/Custom-Gaming-Controller-ESDP2026" class="btn">
+View Source Code
+</a>
+
+</header>
+
+<section>
+
+<h2 class="section-title">Project Overview</h2>
+
+<p style="max-width:900px;margin:auto;text-align:center;">
+This project was developed as part of the Electronic System Design Project Lab
+at IIT Hyderabad. The controller functions as a wireless BLE gamepad
+capable of transmitting joystick, button, trigger and motion-control inputs
+to PCs and mobile devices.
+</p>
+
+</section>
+
+<section>
+
+<h2 class="section-title">Features</h2>
+
+<div class="features">
+
+<div class="card">
+<h3>BLE HID Gamepad</h3>
+<p>Wireless low-latency Bluetooth controller using ESP32.</p>
+</div>
+
+<div class="card">
+<h3>MPU6050 Motion Control</h3>
+<p>Gyroscope and accelerometer based control inputs.</p>
+</div>
+
+<div class="card">
+<h3>Dual Analog Joysticks</h3>
+<p>Precise analog movement and camera control.</p>
+</div>
+
+<div class="card">
+<h3>RGB Feedback</h3>
+<p>WS2812 LEDs provide visual status indication.</p>
+</div>
+
+<div class="card">
+<h3>Battery Monitoring</h3>
+<p>Real-time battery percentage reporting via BLE.</p>
+</div>
+
+<div class="card">
+<h3>USB Charging</h3>
+<p>Integrated Li-Ion charging and power management.</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">Technologies Used</h2>
+
+<div class="tech">
+
+<span>ESP32</span>
+<span>BLE HID</span>
+<span>MPU6050</span>
+<span>FastLED</span>
+<span>Arduino Framework</span>
+<span>EasyEDA</span>
+<span>Li-Ion Battery</span>
+<span>TP4056</span>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">Project Images</h2>
+
+<div class="gallery">
+
+<img src="Schematic.png" alt="Schematic">
+
+<img src="gyro.jpeg" alt="Gyroscope">
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">System Architecture</h2>
+
+<p style="max-width:900px;margin:auto;text-align:center;">
+User Inputs → ESP32 Processing → BLE HID Interface → PC/Mobile Device
+<br><br>
+Additional subsystems include battery monitoring,
+RGB LED indication, trigger controls, and MPU6050-based motion sensing.
+</p>
+
+</section>
+
+<footer>
+
+<h3>Electronic System Design Project Lab</h3>
+
+<p>IIT Hyderabad • Spring Semester 2026</p>
+
+</footer>
+
+</body>
+</html>
