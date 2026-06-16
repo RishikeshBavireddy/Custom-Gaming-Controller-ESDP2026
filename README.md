@@ -10,10 +10,12 @@ The project was developed as part of the **Electronic System Design Project Lab 
 
 ## Objectives
 
-- Design a fully functional BLE-based gaming controller using ESP32  
-- Develop a custom PCB integrating input systems and power management  
-- Implement reliable input acquisition from joysticks and switches   
-- Validate system performance through hardware testing  
+- Design a fully functional BLE gaming controller using ESP32
+- Develop a custom PCB integrating all controller subsystems
+- Implement BLE HID communication for wireless gaming
+- Integrate motion sensing using MPU6050
+- Provide visual feedback using NeoPixel LEDs
+- Validate hardware and firmware performance 
 
 ---
 
