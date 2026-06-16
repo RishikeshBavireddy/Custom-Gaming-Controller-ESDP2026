@@ -19,54 +19,82 @@ The project was developed as part of the **Electronic System Design Project Lab 
 
 ---
 
-## Current Implementation Status
 
-### Functional Components
+# System Architecture
 
-- Digital buttons (B1–B4): Operational  
-- Directional pad (D-pad): Operational  
-- Trigger buttons: Operational  
-- Joystick push buttons: Operational  
-- Analog joystick position sensing: Operational (Facing drift issues) 
-- BLE communication: Operational  
+The controller consists of five major subsystems:
 
-### Known Issues
+## 1. Input Subsystem
 
-- Analog joystick drift observed near center position  
-- Software-based correction (deadzone and calibration) pending  
+Responsible for acquiring user inputs.
 
-### Pending 
+### Components
 
-- Integration of gyroscope (I2C-based IMU)  
+- Dual Analog Joysticks
+- Trigger Buttons (LT, RT)
+- Action Buttons (R1–R4)
+- Directional Pad (D-pad)
+- Joystick Push Buttons (LS, RS)
 
 ---
 
-## System Architecture
+## 2. Motion Sensing Subsystem
 
-The system is organized into the following functional blocks:
+### MPU6050 Gyroscope
 
-### 1. Input Subsystem
-- Analog joysticks connected to ESP32 ADC pins  
-- Digital inputs from buttons, D-pad, and triggers via GPIO  
+Provides motion-based camera control and aiming assistance.
 
-### 2. Processing Unit
-- ESP32-WROOM-32 module  
-- Handles input acquisition, processing, and BLE communication  
+| Signal | ESP32 Pin |
+|----------|----------|
+| SDA | GPIO21 |
+| SCL | GPIO22 |
 
-### 3. Communication
-- BLE HID profile for wireless controller interfacing  
-
-### 4. Power Management
-- Li-ion battery supply  
-- TP4056-based charging circuit  
-- Protection circuitry (DW01A + FS8205A)  
-- Boost converter (MT3608) to maintain stable output voltage  
-
-### 5. Expansion Interfaces
-- I2C header for gyroscope integration 
-- Neopixel interface for visual feedback  
+The gyroscope is interfaced using the I2C protocol.
 
 ---
+
+## 3. Processing Unit
+
+### ESP32-WROOM-32
+
+Responsible for:
+
+- Input acquisition
+- Signal processing
+- Deadzone compensation
+- Motion sensing
+- LED control
+- BLE communication
+
+---
+
+## 4. Communication Subsystem
+
+### BLE HID Gamepad
+
+The ESP32 operates as a Bluetooth HID gamepad and transmits:
+
+- Button states
+- D-pad states
+- Joystick positions
+- Motion control data
+
+to gaming devices and computers.
+
+---
+
+## 5. Power Management
+
+The controller is powered by a rechargeable Li-Ion battery and includes:
+
+- TP4056 charging circuit
+- DW01A battery protection IC
+- FS8205A protection MOSFET
+- MT3608 boost converter
+- AMS1117-3.3 voltage regulator
+
+---
+
 
 ## Hardware Design
 
