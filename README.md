@@ -462,6 +462,31 @@ This provides immediate visual feedback during gameplay.
 
 ---
 
+### Demo Video 1
+
+[Controller Demonstration](videos/demo1.mp4)
+
+Demonstrates:
+
+- BLE pairing
+- Button testing
+- D-pad operation
+- LED feedback
+
+---
+
+### Demo Video 2
+
+[Gyroscope Demonstration](videos/demo2.mp4)
+
+Demonstrates:
+
+- Motion sensing
+- Camera movement
+- Gyroscope-assisted aiming
+
+---
+
 ## Team Members
 
 - Rishikesh — EE24BTECH11204  
