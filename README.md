@@ -135,54 +135,133 @@ The complete circuit schematic is shown below:
 
 ---
 
-### 3. Gyroscope Integration
+---
 
-A gyroscope is planned for motion-based input.
+# Firmware Architecture
 
-**Current Status:**
-- Not yet implemented  
+The firmware performs the following operations continuously:
 
-**Future Plan:**
-- Integrate via I2C interface  
-- Update firmware for sensor fusion and motion tracking  
+1. Read analog joystick values
+2. Read button states
+3. Acquire gyroscope data
+4. Apply deadzone compensation
+5. Apply signal smoothing
+6. Combine joystick and gyroscope inputs
+7. Update LED status
+8. Send BLE HID reports
 
 ---
 
-## Testing and Validation
+# Functional Modules
 
-| Module             | Status       |
-|-------------------|-------------|
-| Buttons           | Verified     |
-| D-pad             | Verified     |
-| Triggers          | Verified     |
-| Joystick Buttons  | Verified     |
-| Joystick Axes     | Verified     |
-| BLE Connectivity  | Verified     |
-| Drift Correction  | Pending      |
-| Gyroscope         | Pending      |
+## Analog Joystick Processing
+
+Two analog joysticks are used for movement and camera control.
+
+### Features
+
+- 12-bit ADC resolution
+- Center calibration
+- Deadzone compensation
+- Signal smoothing
+- BLE HID mapping
+
+### Deadzone Compensation
+
+To eliminate unwanted drift around the center position:
+
+```cpp
+if (abs(lx) < deadzone) lx = 0;
+if (abs(ly) < deadzone) ly = 0;
+```
+
+### Signal Smoothing
+
+```cpp
+lx = (prevLX * 0.7) + (lx * 0.3);
+ly = (prevLY * 0.7) + (ly * 0.3);
+```
+
+This reduces jitter and provides smoother movement.
 
 ---
 
-## Firmware Overview
+## Trigger System
 
-The firmware is responsible for:
+The controller includes two trigger buttons:
 
-- Reading analog and digital inputs  
-- Processing joystick data  
-- Handling BLE communication  
-- Mapping inputs to gamepad controls  
+- LT (Left Trigger)
+- RT (Right Trigger)
+
+### HID Mapping
+
+| Trigger | HID Button |
+|----------|----------|
+| LT | BUTTON_7 |
+| RT | BUTTON_8 |
+
+### Implementation
+
+```cpp
+if (currentLT == LOW)
+{
+    bleGamepad.press(BUTTON_7);
+}
+else
+{
+    bleGamepad.release(BUTTON_7);
+}
+```
+
+```cpp
+if (currentRT == LOW)
+{
+    bleGamepad.press(BUTTON_8);
+}
+else
+{
+    bleGamepad.release(BUTTON_8);
+}
+```
 
 ---
 
-## Repository Structure
+## Action Buttons
 
-## Course Information
+Four action buttons are implemented.
 
-This project was carried out as part of:
+| Physical Button | HID Button |
+|----------------|------------|
+| R1 | BUTTON_5 |
+| R2 | BUTTON_2 |
+| R3 | BUTTON_1 |
+| R4 | BUTTON_4 |
 
-**Electronic System Design Project Lab**  
-Spring Semester 2026  
-Indian Institute of Technology Hyderabad  
+The buttons are continuously scanned and transmitted over BLE.
+
+---
+
+## D-Pad System
+
+Four buttons provide directional control.
+
+### Supported Directions
+
+- Up
+- Down
+- Left
+- Right
+
+### Example
+
+```cpp
+if (digitalRead(L1) == LOW)
+{
+    bleGamepad.setHat1(DPAD_UP);
+}
+```
+
+The D-pad is transmitted using the HID Hat Switch interface.
 
 ---
 
