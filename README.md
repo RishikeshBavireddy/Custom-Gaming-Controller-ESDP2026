@@ -112,7 +112,7 @@ The complete circuit schematic is shown below:
 ![PCB Layout](images/pcb.png)
 
 #### Fabricated PCB (Before Assembly)
-![PCB Bare](images/pcb_bare.jpg)
+![PCB Bare](images/pcb_bare.jpeg)
 
 #### Assembled PCB
 ![PCB Assembled](images/pcb_assembled.jpeg)
