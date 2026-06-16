@@ -279,7 +279,7 @@ The MPU6050 is a 6-axis IMU consisting of:
 
 ### Gyroscope Module
 
-![MPU6050 Module](images/mpu6050.jpg)
+![MPU6050 Module](images/gyro.jpeg)
 
 ---
 
