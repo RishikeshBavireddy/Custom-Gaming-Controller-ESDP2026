@@ -265,6 +265,203 @@ The D-pad is transmitted using the HID Hat Switch interface.
 
 ---
 
+
+---
+
+# MPU6050 Gyroscope Integration
+
+## Hardware
+
+The MPU6050 is a 6-axis IMU consisting of:
+
+- 3-axis accelerometer
+- 3-axis gyroscope
+
+### Gyroscope Module
+
+![MPU6050 Module](images/mpu6050.jpg)
+
+---
+
+## Purpose
+
+The gyroscope is used to provide motion-based camera control.
+
+It supplements the right joystick and enables more precise aiming.
+
+---
+
+## Sensor Acquisition
+
+```cpp
+sensors_event_t a, g, t;
+mpu.getEvent(&a, &g, &t);
+```
+
+This retrieves accelerometer and gyroscope measurements.
+
+---
+
+## Deadzone Compensation
+
+Small sensor noise around zero is removed using:
+
+```cpp
+if (abs(gyro) < gyroDeadzone)
+    gyro = 0;
+```
+
+---
+
+## Motion Scaling
+
+The angular velocity is scaled to the HID range:
+
+```cpp
+int gyroRX = -gyro * gyroSensitivity;
+```
+
+where:
+
+```cpp
+gyroSensitivity = 4700.0;
+```
+
+---
+
+## Combining Joystick and Gyroscope
+
+The right joystick and gyroscope are combined:
+
+```cpp
+long combinedRX = -(long)rx + gyroRX;
+long combinedZ  = (long)(-ry) + gyroZAxis;
+```
+
+This allows:
+
+- Right Joystick → Normal camera movement
+- Gyroscope → Fine motion control
+
+---
+
+## BLE Axis Mapping
+
+```cpp
+bleGamepad.setRX(combinedRX);
+bleGamepad.setZ(combinedZ);
+```
+
+The final camera movement is transmitted as HID rotational axes.
+
+---
+
+# NeoPixel LED Feedback System
+
+The controller includes six WS2812 RGB LEDs.
+
+---
+
+## Startup Animation
+
+During boot, LEDs illuminate sequentially using a rainbow pattern.
+
+```cpp
+leds[i] = CHSV(i * 40, 255, 255);
+```
+
+This provides visual confirmation of successful startup.
+
+---
+
+## BLE Connection Status
+
+### Disconnected State
+
+A moving blue LED animation indicates that the controller is waiting for a BLE connection.
+
+```cpp
+showDisconnected();
+```
+
+### Connected State
+
+When connected:
+
+```cpp
+showConnected();
+```
+
+All LEDs turn green.
+
+---
+
+## Trigger Feedback
+
+### LT Pressed
+
+All LEDs become yellow.
+
+```cpp
+fill_solid(leds, NUM_LEDS, CRGB::Yellow);
+```
+
+### RT Pressed
+
+All LEDs flash blue.
+
+```cpp
+fill_solid(leds, NUM_LEDS, CRGB::Blue);
+```
+
+This provides immediate visual feedback during gameplay.
+
+---
+
+# GPIO Mapping
+
+| Function | GPIO |
+|-----------|------|
+| LT | 15 |
+| RT | 23 |
+| LH | 34 |
+| LV | 35 |
+| LS | 2 |
+| RH | 39 |
+| RV | 36 |
+| RS | 19 |
+| D-Pad Up | 32 |
+| D-Pad Left | 33 |
+| D-Pad Down | 27 |
+| D-Pad Right | 14 |
+| R1 | 18 |
+| R2 | 5 |
+| R3 | 17 |
+| R4 | 16 |
+| NeoPixel Data | 13 |
+| MPU6050 SDA | 21 |
+| MPU6050 SCL | 22 |
+
+---
+
+# Testing and Validation
+
+| Module | Status |
+|----------|----------|
+| BLE Connectivity | Verified |
+| Action Buttons | Verified |
+| Trigger Buttons | Verified |
+| D-Pad | Verified |
+| Joystick Buttons | Verified |
+| Left Joystick | Verified |
+| Right Joystick | Verified |
+| Deadzone Compensation | Verified |
+| MPU6050 Integration | Verified |
+| Motion Control | Verified |
+| NeoPixel Feedback | Verified |
+
+---
+
 ## Team Members
 
 - Rishikesh — EE24BTECH11204  
